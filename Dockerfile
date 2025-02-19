@@ -1,23 +1,14 @@
-# Dockerfile simplificado, sem os comandos COPY para os certificados
-FROM golang:1.23.0-alpine AS builder
-LABEL authors="guilh"
+# Usando uma imagem base de Go
+FROM golang:1.20-alpine
 
-RUN apk add --no-cache make gcc libc-dev
-
+# Definindo o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod tidy
-
+# Copiando os arquivos do projeto para dentro do contêiner
 COPY . .
 
-RUN go build -o main main.go
-
-RUN chmod +x main
-
-RUN mkdir -p /app/certs
-
+# Expondo a porta 7890
 EXPOSE 7890
 
-CMD ["./main"]
+# Comando para rodar a aplicação
+CMD ["go", "run", "main.go"]
