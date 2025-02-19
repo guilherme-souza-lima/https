@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -22,11 +23,17 @@ func main() {
 	e.GET("/check", healthCheck)
 	e.GET("/ws", wsFunc)
 
-	//e.Logger.Fatal(e.StartTLS(":7890", "cert.pem", "key.pem"))
-	e.Logger.Fatal(e.StartTLS(
-		":7890",
-		"/etc/letsencrypt/live/mariadobairro.com.br/fullchain.pem",
-		"/etc/letsencrypt/live/mariadobairro.com.br/privkey.pem"))
+	certFile := "/app/cert.pem"
+	keyFile := "/app/key.pem"
+
+	if _, err := os.Stat(certFile); os.IsNotExist(err) {
+		log.Fatal("Certificado não encontrado: ", certFile)
+	}
+	if _, err := os.Stat(keyFile); os.IsNotExist(err) {
+		log.Fatal("Chave privada não encontrada: ", keyFile)
+	}
+
+	e.Logger.Fatal(e.StartTLS(":7890", certFile, keyFile))
 
 }
 
