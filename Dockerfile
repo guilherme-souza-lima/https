@@ -21,8 +21,8 @@ RUN go build -o main main.go
 RUN chmod +x main
 
 # Copiar os certificados SSL para o contêiner (ajuste os caminhos conforme necessário)
-COPY /etc/letsencrypt/live/seu-dominio.com.br/cert.pem /app/cert.pem
-COPY /etc/letsencrypt/live/seu-dominio.com.br/privkey.pem /app/key.pem
+COPY /etc/letsencrypt/live/mariadobairro.com.br/cert.pem /app/cert.pem
+COPY /etc/letsencrypt/live/mariadobairro.com.br/privkey.pem /app/key.pem
 
 # Expor a porta que o servidor vai escutar
 EXPOSE 7890
