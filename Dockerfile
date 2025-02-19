@@ -20,6 +20,6 @@ RUN chmod +x main
 RUN whoami
 RUN id
 
-EXPOSE 8080
+EXPOSE 7890
 
 CMD ["./main"]
