@@ -27,10 +27,10 @@ func main() {
 	keyFile := "/app/certs/privkey.pem"
 
 	if _, err := os.Stat(certFile); os.IsNotExist(err) {
-		log.Fatal("Certificado não encontrado: ", certFile)
+		log.Fatalf("Certificado não encontrado: %v", err)
 	}
 	if _, err := os.Stat(keyFile); os.IsNotExist(err) {
-		log.Fatal("Chave privada não encontrada: ", keyFile)
+		log.Fatalf("Chave privada não encontrada: %v", err)
 	}
 
 	e.Logger.Fatal(e.StartTLS(":7890", certFile, keyFile))
