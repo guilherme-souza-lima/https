@@ -1,33 +1,25 @@
-# Etapa de build
-FROM golang:1.23 AS builder
+FROM golang:1.23.0-alpine AS builder
+LABEL authors="guilh"
+
+RUN apk add --no-cache make gcc libc-dev
 
 WORKDIR /app
 
-# Copia os arquivos do projeto
-COPY go.mod go.sum ./
-RUN go mod download
+COPY go.mod ./
+COPY go.sum ./
+COPY cert.pem ./
+COPY key.pem ./
+RUN go mod tidy
 
 COPY . .
 
-# Compila a aplicação
-RUN go build -o server .
+RUN go build -o main main.go
 
-# Etapa final: imagem mais leve
-FROM alpine:latest
+RUN chmod +x main
 
-WORKDIR /root/
+RUN whoami
+RUN id
 
-# Instala dependências necessárias
-RUN apk --no-cache add ca-certificates
+EXPOSE 8080
 
-# Copia o binário compilado da etapa anterior
-COPY --from=builder /app/server .
-
-# Copia os certificados SSL
-COPY cert.pem key.pem ./
-
-# Expõe a porta HTTPS
-EXPOSE 7890
-
-# Executa o servidor
-CMD ["./server"]
+CMD ["./main"]
