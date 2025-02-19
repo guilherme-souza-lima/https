@@ -23,9 +23,10 @@ func main() {
 	e.GET("/ws", wsFunc)
 
 	//e.Logger.Fatal(e.StartTLS(":7890", "cert.pem", "key.pem"))
-	e.Logger.Fatal(e.StartTLS(":7890",
-		"/etc/letsencrypt/live/seu-dominio.com.br/fullchain.pem",
-		"/etc/letsencrypt/live/seu-dominio.com.br/privkey.pem"))
+	e.Logger.Fatal(e.StartTLS(
+		":7890",
+		"/etc/letsencrypt/live/mariadobairro.com.br/fullchain.pem",
+		"/etc/letsencrypt/live/mariadobairro.com.br/privkey.pem"))
 
 }
 
