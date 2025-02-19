@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/labstack/echo/v4/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -19,6 +20,8 @@ var wsUpgrader = websocket.Upgrader{
 
 func main() {
 	e := echo.New()
+
+	e.Pre(middleware.HTTPSRedirect())
 
 	e.GET("/check", healthCheck)
 	e.GET("/ws", wsFunc)
