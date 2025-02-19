@@ -23,8 +23,8 @@ func main() {
 	e.GET("/check", healthCheck)
 	e.GET("/ws", wsFunc)
 
-	certFile := "/app/cert.pem"
-	keyFile := "/app/key.pem"
+	certFile := "/app/certs/cert.pem"
+	keyFile := "/app/certs/privkey.pem"
 
 	if _, err := os.Stat(certFile); os.IsNotExist(err) {
 		log.Fatal("Certificado não encontrado: ", certFile)
