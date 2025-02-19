@@ -26,7 +26,7 @@ func main() {
 	e.GET("/check", healthCheck)
 	e.GET("/ws", wsFunc)
 
-	certFile := "cert.pem"
+	certFile := "fullchain.pem"
 	keyFile := "privkey.pem"
 
 	if _, err := os.Stat(certFile); os.IsNotExist(err) {
