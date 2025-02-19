@@ -16,6 +16,8 @@ RUN go build -o main main.go
 
 RUN chmod +x main
 
+RUN mkdir -p /app/certs
+
 EXPOSE 7890
 
 CMD ["./main"]
